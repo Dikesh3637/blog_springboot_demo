@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/blogs")
@@ -36,11 +38,8 @@ public class BlogController {
 
     @GetMapping("/id")
     public ResponseEntity<Blog> getById(@RequestParam String id) {
-        Optional<Blog> blogOptional = blogService.getById(id);
-        if (blogOptional.isEmpty()) {
-            throw new BlogNotFoundException("Blog not found with the id :" + id);
-        }
-        return ResponseEntity.ok(blogOptional.get());
+        Blog blog = blogService.getById(id);
+        return ResponseEntity.ok(blog);
     }
 
     @GetMapping("/title")
@@ -53,6 +52,12 @@ public class BlogController {
     public ResponseEntity<Blog> addBlog(@RequestBody AddBlogDto addBlogDto) {
         Blog createdBlog = blogService.addBlog(addBlogDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBlog);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Blog> updateBlog(@PathVariable String id, @RequestBody AddBlogDto dto) {
+        Blog updatedBlog = blogService.updateBlog(id, dto);
+        return ResponseEntity.ok(updatedBlog);
     }
 
 }
