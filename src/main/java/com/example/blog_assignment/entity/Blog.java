@@ -19,8 +19,7 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "title", nullable = false)
-    @NotBlank
+    @Column(name = "title", nullable = false, unique = true)
     private String title;
 
     @Column(name = "content", nullable = false)
