@@ -1,5 +1,6 @@
 package com.example.blog_assignment.repository;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,8 +12,10 @@ import com.example.blog_assignment.entity.Blog;
 
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, UUID> {
+    // find all blogs
+    List<Blog> findAll();
 
+    // findByTitle
     @Query("SELECT b FROM Blog b WHERE b.title = :title")
     Blog findByTitle(@Param("title") String title);
-
 }

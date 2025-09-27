@@ -5,11 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog_assignment.dto.AddBlogDto;
 import com.example.blog_assignment.entity.Blog;
-import com.example.blog_assignment.exception.BlogNotFoundException;
 import com.example.blog_assignment.service.BlogService;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
