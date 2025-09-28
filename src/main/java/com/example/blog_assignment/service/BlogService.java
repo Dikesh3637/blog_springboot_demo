@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.example.blog_assignment.dto.UpdateBlogDto;
 import com.example.blog_assignment.dto.AddBlogDto;
 import com.example.blog_assignment.entity.Blog;
 import com.example.blog_assignment.exception.BlogNotFoundException;
@@ -31,7 +32,7 @@ public class BlogService {
     public Blog getById(String id) {
         Optional<Blog> blogOptional = blogRepository.findById(UUID.fromString(id));
         if (blogOptional.isEmpty()) {
-            throw new BlogNotFoundException("Blog not found");
+            throw new BlogNotFoundException("Blog not found with the id : " + id);
         }
         return blogOptional.get();
     }
@@ -43,14 +44,15 @@ public class BlogService {
         return blogRepository.save(blog);
     }
 
-    public Blog updateBlog(String id, AddBlogDto addBlogDto) {
-        Optional<Blog> blogOptional = blogRepository.findById(UUID.fromString(id));
+    public Blog updateBlog(UpdateBlogDto dto) {
+        Optional<Blog> blogOptional = blogRepository.findById(UUID.fromString(dto.getId()));
         if (blogOptional.isPresent()) {
             Blog blog = blogOptional.get();
-            blog.setTitle(addBlogDto.getTitle());
-            blog.setContent(addBlogDto.getContent());
+            blog.setTitle(dto.getTitle());
+            blog.setContent(dto.getContent());
             return blogRepository.save(blog);
+        } else {
+            throw new BlogNotFoundException("Blog not found with the id : " + dto.getId());
         }
-        return null;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog_assignment.dto.AddBlogDto;
+import com.example.blog_assignment.dto.UpdateBlogDto;
 import com.example.blog_assignment.entity.Blog;
 import com.example.blog_assignment.service.BlogService;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/blogs")
@@ -52,9 +52,9 @@ public class BlogController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBlog);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Blog> updateBlog(@PathVariable String id, @RequestBody AddBlogDto dto) {
-        Blog updatedBlog = blogService.updateBlog(id, dto);
+    @PutMapping("/")
+    public ResponseEntity<Blog> updateBlog(@RequestBody UpdateBlogDto dto) {
+        Blog updatedBlog = blogService.updateBlog(dto);
         return ResponseEntity.ok(updatedBlog);
     }
 
