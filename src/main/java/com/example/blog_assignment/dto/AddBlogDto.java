@@ -9,6 +9,9 @@ public class AddBlogDto {
         this.content = content;
     }
 
+    public AddBlogDto() {
+    }
+
     public String getTitle() {
         return title;
     }
@@ -16,4 +19,13 @@ public class AddBlogDto {
     public String getContent() {
         return content;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 }

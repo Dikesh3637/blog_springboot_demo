@@ -1,5 +1,7 @@
 package com.example.blog_assignment.repository_test;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,12 @@ public class BlogRepositoryTest {
         registry.add("spring.datasource.password", postgreContainer::getPassword);
     }
 
+    @Test
+    void canEstablishConnection() {
+        assertTrue(postgreContainer.isCreated());
+        assertTrue(postgreContainer.isRunning());
+    }
+
     @BeforeEach
     void setUp() {
         Blog blog1 = new Blog();
@@ -51,6 +59,16 @@ public class BlogRepositoryTest {
 
         blogRepository.save(blog1);
         blogRepository.save(blog2);
+    }
+
+    @AfterEach
+    void tearDown() {
+        blogRepository.deleteAll();
+    }
+
+    @AfterAll
+    static void containerShutdown() {
+        postgreContainer.stop();
     }
 
     @Test
